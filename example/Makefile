@@ -39,7 +39,7 @@ snapshot:
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v $(GOPATH)/src:/go/src \
 		-w /golang-cross-example \
-		ghcr.io/gythialy/golang-cross:$(GO_BUILDER_VERSION) --snapshot --rm-dist
+		ghcr.io/mengdaming/golang-cross:$(GO_BUILDER_VERSION) --snapshot --rm-dist
 		
 release: changelog
 	docker run --rm --privileged \
@@ -49,7 +49,7 @@ release: changelog
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v $(GOPATH)/src:/go/src \
 		-w /golang-cross-example \
-		ghcr.io/gythialy/golang-cross:$(GO_BUILDER_VERSION) --rm-dist --release-notes=CHANGELOG.md
+		ghcr.io/mengdaming/golang-cross:$(GO_BUILDER_VERSION) --rm-dist --release-notes=CHANGELOG.md
 
 lint: 
 	golangci-lint run --fix

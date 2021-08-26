@@ -1,7 +1,7 @@
-FROM ghcr.io/gythialy/golang-cross-builder:v1.16.2
+FROM ghcr.io/mengdaming/golang-cross-builder:v1.16.7-fyne.1
 
-LABEL maintainer="Goren G<gythialy.koo+github@gmail.com>"
-LABEL org.opencontainers.image.source https://github.com/gythialy/golang-cross
+LABEL maintainer="Damien Menanteau<damien.menanteau@gmail.com>"
+LABEL org.opencontainers.image.source https://github.com/mengdaming/golang-cross
 
 COPY entrypoint.sh /
 

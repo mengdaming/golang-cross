@@ -83,6 +83,6 @@ snapshot:
 
 # release:
 #   github:
-#     owner: gythialy
+#     owner: mengdaming
 #     name: golang-cross
 #   prerelease: auto
