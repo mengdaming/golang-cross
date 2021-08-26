@@ -13,8 +13,8 @@ jobs:
     - name: Build and Publish the Docker image to GitHub Packages
       uses: elgohr/Publish-Docker-Github-Action@3.04
       with:
-        name: gythialy/golang-cross/xcgo
-        username: gythialy
+        name: mengdaming/golang-cross/xcgo
+        username: mengdaming
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
         tag_names: true
