@@ -14,7 +14,7 @@ jobs:
       with:
         name: mengdaming/golang-cross/golang-cross-builder
         username: mengdaming
-        password: ${{ secrets.DEPLOY_TOKEN }}
+        password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile.builder
         registry: docker.pkg.github.com
         tags: "latest,v1.16.7-fyne.1"
@@ -24,7 +24,7 @@ jobs:
       with:
         name: mengdaming/golang-cross-builder
         username: mengdaming
-        password: ${{ secrets.DEPLOY_TOKEN }}
+        password: ${{ secrets.GITHUB_TOKEN }}
         dockerfile: Dockerfile.builder
         registry: ghcr.io
         tags: "latest,v1.16.7-fyne.1"
