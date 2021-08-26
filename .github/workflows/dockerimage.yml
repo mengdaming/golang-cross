@@ -1,32 +1,35 @@
 name: Docker Image CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - fyne-cross
 
 jobs:
 
   build:
- 
-    runs-on: ubuntu-latest
- 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build and Publish the Docker image to GitHub Packages
-      uses: elgohr/Publish-Docker-Github-Action@3.04
-      with:
-        name: mengdaming/golang-cross/xcgo
-        username: mengdaming
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: docker.pkg.github.com
-        tag_names: true
-    
-    - name: Build and Publish the Docker image to ghcr.io
-      uses: elgohr/Publish-Docker-Github-Action@3.04
-      with:
-        name: mengdaming/golang-cross
-        username: mengdaming
-        password: ${{ secrets.GITHUB_TOKEN }}
-        registry: ghcr.io
-        tag_names: true
 
-    - name: test example
-      run: cd example && make snapshot
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and Publish the Docker image to GitHub Packages
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          name: mengdaming/golang-cross/xcgo
+          username: mengdaming
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          tag_names: true
+
+      - name: Build and Publish the Docker image to ghcr.io
+        uses: elgohr/Publish-Docker-Github-Action@3.04
+        with:
+          name: mengdaming/golang-cross
+          username: mengdaming
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          tag_names: true
+
+      - name: test example
+        run: cd example && make snapshot

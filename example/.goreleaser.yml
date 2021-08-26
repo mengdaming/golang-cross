@@ -13,6 +13,7 @@ before:
     # - go generate ./..
 builds:
 # Mainnet
+
 - id: example-darwin-amd64
   binary: example
   env:
@@ -24,6 +25,7 @@ builds:
     - darwin
   goarch:
     - amd64
+
 - id: example-darwin-arm64
   binary: example
   env:
@@ -35,6 +37,7 @@ builds:
     - darwin
   goarch:
     - arm64
+
 - id: example-linux
   binary: example
   env:
@@ -44,6 +47,7 @@ builds:
     - linux
   goarch:
     - amd64
+
 - id: example-windows-x64
   ldflags: -buildmode=exe
   binary: example

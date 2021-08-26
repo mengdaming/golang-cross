@@ -14,7 +14,7 @@ MAIN = main.go
 BUILDDIR = build
 GITREV = $(shell git rev-parse --short HEAD)
 BUILDTIME = $(shell date +'%FT%TZ%z')
-GO_BUILDER_VERSION=latest
+GO_BUILDER_VERSION=fyne-cross
 
 deps:
 	go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
