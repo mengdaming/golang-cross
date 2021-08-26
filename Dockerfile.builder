@@ -62,6 +62,8 @@ RUN set -x; echo "Starting image build for Debian Stretch" \
         openssl                                        \
         mingw-w64                                      \
         musl-tools                                     \
+        libgl1-mesa-dev                                \
+        xorg-dev                                       \
         libssl-dev                                  && \
 				apt -y autoremove && \
     		apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
