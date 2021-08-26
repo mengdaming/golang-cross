@@ -1,6 +1,12 @@
-# golang-cross [![Actions Status](https://github.com/gythialy/golang-cross/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/gythialy/golang-cross/actions)
+# golang-cross with Fyne
 
-Docker container to do cross compilation (Linux, windows, macOS, ARM, ARM64) of go packages including support for cgo.
+[![Actions Status](https://github.com/mengdaming/golang-cross/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/mengdaming/golang-cross/actions)
+
+Docker container to do cross compilation (Linux, windows, macOS, ARM, ARM64) 
+of go packages using fyne and including support for cgo.
+
+**This is a fork from [gythialy/golang-cross](https://github.com/gythialy/golang-cross), including minimum
+adjustments so that cross-compilation works with [Fyne](https://fyne.io/), which relies on platform-specific graphic libraries.**
 
 ## Docker images
 
@@ -8,17 +14,17 @@ Docker container to do cross compilation (Linux, windows, macOS, ARM, ARM64) of 
 
   - golang-cross
     ```
-    docker pull ghcr.io/gythialy/golang-cross:latest
+    docker pull ghcr.io/mengdaming/golang-cross:latest
     ```
   - golang-cross-builder
     ```
-    docker pull ghcr.io/gythialy/golang-cross-builder:v1.16.2
+    docker pull ghcr.io/mengdaming/golang-cross-builder:v1.16.7-fyne.1
     ```
 
 - Build your own images
   - Build base image (optional)
     ```
-     docker build -f Dockerfile_builder -t ghcr.io/gythialy/golang-cross-builder:v1.16.2 .
+     docker build -f Dockerfile.builder -t ghcr.io/mengdaming/golang-cross-builder:v1.16.2 .
     ```
     > Please follow the guide to [pack the SDK](https://github.com/tpoechtrager/osxcross#packaging-the-sdk) first
   - Build golang-cross image
@@ -28,7 +34,7 @@ Docker container to do cross compilation (Linux, windows, macOS, ARM, ARM64) of 
       --build-arg GORELEASER_VERSION=0.162.0 \ 
       --build-arg GORELEASER_SHA=4b7d2f1e59ead8047fcef795d66236ff6f8cfe7302c1ff8fb31bd360a3c6f32e \ 
       -f Dockerfile \ 
-      -t ghcr.io/gythialy/golang-cross:latest .
+      -t ghcr.io/meengdaming/golang-cross:latest .
     ```
     > The default arguments can be overridden with `--build-arg`
 ## How to use
@@ -50,13 +56,13 @@ Docker container to do cross compilation (Linux, windows, macOS, ARM, ARM64) of 
       -v /var/run/docker.sock:/var/run/docker.sock \
       -v $(GOPATH)/src:/go/src \
       -w /golang-cross-example \
-      ghcr.io/gythialy/golang-cross:$(GO_BUILDER_VERSION) --snapshot --rm-dist
+      ghcr.io/mengdaming/golang-cross:$(GO_BUILDER_VERSION) --snapshot --rm-dist
   ```
 
 ## Practical example
 
 - [.goreleaser.yml](example/.goreleaser.yml)
-- [Makefile](example/Makefile#L35-L42)
+- [Makefile](example/Makefile)
 
 ## Thanks
 
