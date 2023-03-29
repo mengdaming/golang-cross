@@ -1,19 +1,17 @@
-name: Build golang-cross-builder
+name: release golang-cross
 
 on:
-  workflow_dispatch:
+  release:
+    types:
+      - created
 
 jobs:
   build:
-    runs-on: ubuntu-latest
     permissions:
       id-token: write
       packages: write
       contents: read
-    env:
-      GOLANG_CROSS_TAG: "v1.18.1-0"
-      DOCKER_REGISTRY: "ghcr.io"
-
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: sigstore/cosign-installer@v2.2.0
@@ -22,22 +20,24 @@ jobs:
       id: get_repo_owner
       run: echo ::set-output name=repo_owner::$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
 
+    - name: Get tag
+      id: get_tag
+      run: echo ::set-output name=release_tag::${GITHUB_REF/refs\/tags\//}
+
     - name: Build and Publish the Docker image to ghcr.io
       uses: elgohr/Publish-Docker-Github-Action@v5
       with:
-        name: ${{ steps.get_repo_owner.outputs.repo_owner }}/golang-cross-builder
+        name: ${{ steps.get_repo_owner.outputs.repo_owner }}/golang-cross
         username: ${{ steps.get_repo_owner.outputs.repo_owner }}
         password: ${{ secrets.DEPLOY_TOKEN }}
         registry: ghcr.io
-        dockerfile: Dockerfile.builder
-        tags: "latest,${{ env.GOLANG_CROSS_TAG }}"
+        tags: ${{ steps.get_tag.outputs.release_tag }}
 
     - name: Sign the images
       run: |
-        echo "${DOCKER_PASSWD}" | docker login -u ${{ steps.get_repo_owner.outputs.repo_owner }} --password-stdin ghcr.io
-        cosign sign --force ghcr.io/${{ steps.get_repo_owner.outputs.repo_owner }}/golang-cross-builder:${{ env.GOLANG_CROSS_TAG }}
-        docker logout
-
+          echo "${DOCKER_PASSWD}" | docker login -u ${{ steps.get_repo_owner.outputs.repo_owner }} --password-stdin ghcr.io
+          cosign sign --force ghcr.io/${{ steps.get_repo_owner.outputs.repo_owner }}/golang-cross:${{ steps.get_tag.outputs.release_tag }}
+          docker logout
       shell: bash
       env:
         COSIGN_EXPERIMENTAL: 1
